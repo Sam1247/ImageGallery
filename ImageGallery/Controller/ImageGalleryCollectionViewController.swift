@@ -10,7 +10,7 @@ import UIKit
 
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
     
-    var imageGallary = ImageGallery() {
+    var imageGallary: ImageGallery? {
         didSet {
             collectionView.reloadData()
         }
@@ -49,7 +49,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellHeight = imageGallary.imagesData[indexPath.row].aspectRatio * cellWidth
+        let cellHeight = imageGallary!.imagesData[indexPath.row].aspectRatio * cellWidth
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
@@ -74,13 +74,13 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageGallary.imagesData.count
+        return imageGallary!.imagesData.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
         if let imageCell = cell as? ImageCollectionViewCell {
-            let url = imageGallary.imagesData[indexPath.row].url
+            let url = imageGallary!.imagesData[indexPath.row].url
             let request = URLRequest(url: url.imageURL)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if error != nil {
@@ -89,7 +89,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                 if let imageData = data, let image = UIImage(data: imageData) {
                     DispatchQueue.main.async {
                         if let targetIndexpath = collectionView.indexPath(for: imageCell) {
-                            if self.imageGallary.imagesData[targetIndexpath.item].url == url {
+                            if self.imageGallary!.imagesData[targetIndexpath.item].url == url {
                                 imageCell.cellImage = image
                             }
                         }
@@ -97,7 +97,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                 } else {
                     DispatchQueue.main.async {
                         if let targetIndexpath = collectionView.indexPath(for: imageCell) {
-                            if self.imageGallary.imagesData[targetIndexpath.item].url == url {
+                            if self.imageGallary!.imagesData[targetIndexpath.item].url == url {
                                 imageCell.imageView.image = UIImage(named: "fail")
                             }
                         }
@@ -126,8 +126,8 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
             if let sourceIndex = item.sourceIndexPath {
                 if let imageData = item.dragItem.localObject as? ImageData {
                     collectionView.performBatchUpdates( {
-                        imageGallary.imagesData.remove(at: sourceIndex.item)
-                        imageGallary.imagesData.insert(imageData, at: destinationIndexPath.item)
+                        imageGallary!.imagesData.remove(at: sourceIndex.item)
+                        imageGallary!.imagesData.insert(imageData, at: destinationIndexPath.item)
                         collectionView.deleteItems(at: [sourceIndex])
                         collectionView.insertItems(at: [destinationIndexPath])
                     })
@@ -149,7 +149,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                                 if let imageData = data, let image = UIImage(data: imageData) {
                                     let aspectRatio = image.size.height / image.size.width
                                     placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
-                                        self.imageGallary.imagesData.insert(ImageData(url: url, aspectRatio: aspectRatio), at: insertionIndexPath.item)
+                                        self.imageGallary!.imagesData.insert(ImageData(url: url, aspectRatio: aspectRatio), at: insertionIndexPath.item)
                                     })
                                 } else {
                                     placeholderContext.deletePlaceholder()
@@ -174,7 +174,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
         let dragItem = UIDragItem(itemProvider: NSItemProvider())
-        dragItem.localObject = imageGallary.imagesData[indexPath.item]
+        dragItem.localObject = imageGallary!.imagesData[indexPath.item]
         return [dragItem]
     }
 }
