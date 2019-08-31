@@ -9,7 +9,11 @@
 import Foundation
 
 struct ImageGallery {
+    var name: String
     var imagesData = [ImageData]()
+    init(name: String) {
+        self.name = name
+    }
     private mutating func append(imageData: ImageData) {
         imagesData.append(imageData)
     }
