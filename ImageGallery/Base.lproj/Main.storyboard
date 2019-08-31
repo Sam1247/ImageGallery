@@ -78,7 +78,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84Q-KT-DxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942.96875" y="81.4453125"/>
+            <point key="canvasLocation" x="1016" y="69"/>
         </scene>
         <!--Image Gallery Document Table View Controller-->
         <scene sceneID="Ngo-iM-Dzq">
@@ -104,10 +104,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Cz4-Ar-KYQ"/>
+                    <connections>
+                        <segue destination="Qok-CD-hyl" kind="showDetail" identifier="ShowImageCollection" id="eQ4-lq-9Bf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xzm-V3-90I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1708.59375" y="799.8046875"/>
+            <point key="canvasLocation" x="815" y="866"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="UiF-YD-oNg">
@@ -185,7 +188,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q03-oy-fHp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942.96875" y="799.8046875"/>
+            <point key="canvasLocation" x="124" y="789"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eQ4-lq-9Bf"/>
+    </inferredMetricsTieBreakers>
 </document>

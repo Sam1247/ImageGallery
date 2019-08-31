@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct ImageGallery {
+class ImageGallery {
     var name: String
     var imagesData = [ImageData]()
     init(name: String) {
         self.name = name
     }
-    private mutating func append(imageData: ImageData) {
+    private func append(imageData: ImageData) {
         imagesData.append(imageData)
     }
 }

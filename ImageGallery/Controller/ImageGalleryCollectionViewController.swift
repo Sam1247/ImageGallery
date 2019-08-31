@@ -10,7 +10,7 @@ import UIKit
 
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
     
-    var imageGallary: ImageGallery? {
+    var imageGallary: ImageGallery? = ImageGallery(name: "ss") {
         didSet {
             collectionView.reloadData()
         }
